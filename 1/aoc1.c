@@ -28,7 +28,7 @@ int32_t getMaxCalories()
             nCurrentFood += atoi(acLine);
         }
     }
-
+    fclose(pFile);
     return nAnswer;
 }
 

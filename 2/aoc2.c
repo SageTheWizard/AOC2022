@@ -5,6 +5,7 @@
 
 #define MAX_SIZE 1000
 #define TOP_N 3
+#define READ_BUFFER_SZ 256
 
 void assert(uint8_t bCond)
 {
@@ -17,7 +18,7 @@ void assert(uint8_t bCond)
 size_t getAllCalories(int32_t *pnAllCalories)
 {
     FILE *pFile = fopen("input.txt", "r");
-    char acLine[256] = {0};
+    char acLine[READ_BUFFER_SZ] = {0};
     int32_t nCurrentFood = 0;
     int32_t nIndx = 0;
     while (fgets(acLine, sizeof(acLine), pFile))
@@ -35,7 +36,7 @@ size_t getAllCalories(int32_t *pnAllCalories)
             nCurrentFood += atoi(acLine);
         }
     }
-
+    fclose(pFile);
     return nIndx;
 }
 
@@ -51,7 +52,7 @@ int main()
     qsort((void *)anCalorieArray, nSize, sizeof(int32_t), greaterThan);
 
     uint32_t nTotal = 0;
-    for (uint8_t i = 0; i < 3; i++)
+    for (uint8_t i = 0; i < TOP_N; i++)
     {
         printf("#%d -- %d\n", i + 1, anCalorieArray[i]);
         nTotal += anCalorieArray[i];
